@@ -11,9 +11,9 @@
 - 需要C++基础
 
 课程包含内容
-Vector Spaces（向量空间）
-Matrices（矩阵）
-Quaternion（四元数）
-Affine Geometry（仿射几何）
-Affine Transformations（仿射变换）
-3D Mathematics（3D数学)
+- Vector Spaces（向量空间）
+- Matrices（矩阵）
+- Quaternion（四元数）
+- Affine Geometry（仿射几何）
+- Affine Transformations（仿射变换）
+- 3D Mathematics（3D数学)
