@@ -11,43 +11,6 @@ using namespace std;
 #define SQRT(X)		sqrt((X))
 #define SQR(X)		((X) * (X))
 
-//class GVector2
-//{
-//public:
-//
-//	GVector2(float x = 0.0f, float y = 0.0f);
-//	GVector2(const GVector2 &copy);
-//
-//	GVector2& operator =(const GVector2& rhs);
-//
-//	// The multiplication of vectors and scalars
-//	friend GVector2 operator *(const GVector2& lhs, const float& k); // k * u
-//	friend GVector2 operator *(const float& k, const GVector2& rhs); // u * k
-//	friend GVector2 operator /(const GVector2& lhs, const float& k); // u / k
-//
-//																	 // The addition and subtraction of vectors
-//	GVector2 operator +(const GVector2& rhs) const; // u + v
-//	GVector2 operator -(const GVector2& rhs) const; // u - v
-//
-//													// The norm and direction of vectors
-//	friend float norm(const GVector2& v);
-//	GVector2& normalize();
-//
-//	// The inner product of vectors
-//	float operator *(const GVector2& rhs) const; // u * v
-//
-//												 // The projection of vectors
-//	friend GVector2 proj(const GVector2& v, const GVector2& w); // proj 
-//	friend GVector2 perp(const GVector2& v, const GVector2& w); // prep
-//
-//																// The output of vectors
-//	friend ostream& operator <<(ostream &os, const GVector2& v);
-//
-//private:
-//	float V[2];
-//
-//};
-
 class GVector3
 {
 public:

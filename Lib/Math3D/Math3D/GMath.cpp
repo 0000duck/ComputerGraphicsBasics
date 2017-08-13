@@ -1,89 +1,5 @@
 #include "GMath.h"
 
-//---------------------- GVector2 ----------------------//
-
-//GVector2::GVector2(float x, float y)
-//{
-//	V[0] = x;
-//	V[1] = y;
-//}
-//
-//GVector2::GVector2(const GVector2 & copy)
-//{
-//	V[0] = copy.V[0];
-//	V[1] = copy.V[1];
-//}
-//
-//GVector2 & GVector2::operator=(const GVector2 & rhs)
-//{
-//	V[0] = rhs.V[0];
-//	V[1] = rhs.V[1];
-//
-//	return *this;
-//}
-//
-//GVector2 GVector2::operator+(const GVector2 & rhs) const
-//{
-//	return GVector2(V[0] + rhs.V[0], V[1] + rhs.V[1]);
-//}
-//
-//GVector2 GVector2::operator-(const GVector2 & rhs) const
-//{
-//	return GVector2(V[0] - rhs.V[0], V[1] - rhs.V[1]);
-//}
-//
-//GVector2 & GVector2::normalize()
-//{
-//	float len = norm(*this);
-//	if (len > PRECISION)
-//	{
-//		V[0] /= len;
-//		V[1] /= len;
-//	}
-//	return *this;
-//}
-//
-//float GVector2::operator*(const GVector2 & rhs) const
-//{
-//	return SQRT(V[0] * rhs.V[0] + V[1] * rhs.V[1]);
-//}
-//
-//GVector2 operator*(const GVector2 & lhs, const float & k)
-//{
-//	return GVector2(lhs.V[0] * k, lhs.V[1] * k);
-//}
-//
-//GVector2 operator*(const float & k, const GVector2 & rhs)
-//{
-//	return GVector2(rhs.V[0] * k, rhs.V[1] * k);
-//}
-//
-//GVector2 operator/(const GVector2 & lhs, const float & k)
-//{
-//	return GVector2(lhs.V[0] / k, lhs.V[1] / k);
-//}
-//
-//float norm(const GVector2 & v)
-//{
-//	return SQRT(v.V[0] * v.V[0] + v.V[1] * v.V[1]);
-//}
-//
-//GVector2 proj(const GVector2 & v, const GVector2 & w)
-//{
-//	return (v*w / SQR(norm(w)))*w;
-//}
-//
-//GVector2 perp(const GVector2 & v, const GVector2 & w)
-//{
-//	return v - proj(v, w);
-//}
-//
-//ostream & operator<<(ostream & os, const GVector2 & v)
-//{
-//	os << "[" << setw(10) << v.V[0] << ", " << setw(10) << v.V[1]<<"]";
-//	return os;
-//}
-
 //---------------------- GVector3 ----------------------//
 
 GVector3::GVector3(float x, float y, float z)
@@ -139,7 +55,7 @@ GVector3& GVector3::normalize()
 
 float GVector3::operator*(const GVector3 & rhs) const
 {
-	return SQRT(V[0] * rhs.V[0] + V[1] * rhs.V[1] + V[2] * rhs.V[2]);
+	return (V[0] * rhs.V[0] + V[1] * rhs.V[1] + V[2] * rhs.V[2]);
 }
 
 GVector3 operator*(const GVector3 & lhs, const float & k)
@@ -161,7 +77,7 @@ GVector3 operator/(const GVector3 & lhs, const float & k)
 
 GVector3 proj(const GVector3 & v, const GVector3 & w)
 {
-	return (v*w / SQR(norm(w)))*w;
+		return (v*w / SQR(norm(w)))*w;
 }
 
 GVector3 perp(const GVector3 & v, const GVector3 & w)
