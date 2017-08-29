@@ -67,3 +67,51 @@ private:
 	float V[3];
 
 };
+
+class GVector4
+{
+public:
+
+	GVector4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+	GVector4(const GVector4 &copy);
+
+	// Assignment operator overloading
+	GVector4& operator =(const GVector4& rhs);
+
+	// Compound assignment operator overloading
+	GVector4 &operator +=(const GVector4 &rhs);
+	GVector4 &operator -=(const GVector4 &rhs);
+	GVector4 &operator *=(const float &s);
+	GVector4 &operator /=(const float &s);
+
+	// Equality and inequality operator overloading
+	bool operator ==(const GVector4 &rhs) const;
+	bool operator !=(const GVector4 &rhs) const;
+
+	// The addition and subtraction of vectors
+	GVector4 operator +(const GVector4& rhs) const; // u + v
+	GVector4 operator -(const GVector4& rhs) const; // u - v
+
+	// The inner product of vectors
+	float operator *(const GVector4& rhs) const; // u * v
+
+	// The norm and direction of vectors
+	friend float norm(const GVector4& v);
+	GVector4& normalize();
+
+	// The output of vectors
+	friend ostream& operator <<(ostream &os, const GVector4& v);
+
+	// Subscript operator overloading
+	float &operator [](const int &idx);
+	const float &operator [](const int &idx) const;
+
+	// The multiplication of vectors and scalars
+	friend GVector4 operator *(const GVector4& lhs, const float& k); // k * u
+	friend GVector4 operator *(const float& k, const GVector4& rhs); // u * k
+	friend GVector4 operator /(const GVector4& lhs, const float& k); // u / k
+
+private:
+	float V[4];
+
+};
