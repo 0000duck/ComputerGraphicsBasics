@@ -487,10 +487,10 @@ GMatrix &GMatrix::operator *=(const GMatrix &rhs)
 	float *newM = new float[r * c];
 	memset(newM, 0, sizeof(float) * r * c);
 
-	for (int i = 0; i != r; ++i)
-		for (int j = 0; j != c; ++j)
-			for (int k = 0; k != rhs.r; ++k)
-				newM[i * c + j] += M[i * c + k] * rhs.M[k * rhs.c + j];
+	for (int i = 0; i < r; ++i)
+		for (int j = 0; j < c; ++j)
+			for (int k = 0; k < rhs.r; ++k)
+				newM[i * c + j] += M[i * rhs.r + k] * rhs.M[k * c + j];
 
 	delete[] M;
 	M = newM;
@@ -746,34 +746,37 @@ GMatrix RowEchelonForm(const GMatrix &m)
 	int shift = 0;
 	for (i = 0; i < n; i++)
 	{
-		// pivoting.
-		float maxi = ABS(T[i][i + shift]);
-		int pivot_idx = i;
-		for (j = i + 1; j < n; j++)
+		float maxi = ABS(T[i][i + shift]); // 取第1行第1列
+		int pivot_idx = i; //保存当前行号
+		for (j = i + 1; j < n; j++) // 找到当前列中的最大值
 		{
 			if (maxi < ABS(T[j][i + shift]))
 			{
 				maxi = ABS(T[j][i + shift]);
-				pivot_idx = j;
+				pivot_idx = j; //更新行号为最大值所在行号
 			}
 		}
 
-		if (EQ_ZERO(maxi, PRECISION))
+		if (EQ_ZERO(maxi, PRECISION)) // 判断最大值是否为0
 		{
 			shift++;
 			i--;
 			continue;
 		}
 
+		// 如果当前行不是包含最大值的行，则交换两行
 		if (i != pivot_idx)
 			T.ExchangeRows(i, pivot_idx);
 
+		// 取出最大值
 		float s = T[i][i + shift];
-		for (j = i + shift; j < c; j++)
+		for (j = i + shift; j < c; j++) // 找出leading 1（除以最大值）
 			T[i][j] = T[i][j] / s;
 
+		// 将leading 1下面的元素变为0（一行减去s倍leading 1所在行）
 		for (j = i + 1; j < r; j++)
 		{
+			
 			s = T[j][i + shift];
 			for (k = i + shift; k < c; k++)
 			{
@@ -822,6 +825,7 @@ GMatrix ReducedRowEchelon(const GMatrix &m)
 		for (j = i + shift; j < c; j++)
 			T[i][j] = T[i][j] / s;
 
+		// 将 leading 1 上下的元素变为0
 		for (j = 0; j < r; j++)
 		{
 			if (i == j)

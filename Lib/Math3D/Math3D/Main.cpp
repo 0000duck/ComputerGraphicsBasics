@@ -4,21 +4,15 @@
 int main()
 {
 
-	GVector3 p(1, 3, 0), q(1, 1, 0), r(0, 1, 0);
+	float m[] = {
+		3.0f, 2.0f,-3.0f,-13.0f,
+		4.0f,-3.0f, 6.0f, 7.0f,
+		1.0f, 0.0f,-1.0f,-5.0f };
+	GMatrix M(3, 4, m);
 
-	float m[] = { 2,1,3,0,1,-1,1,3,-1 };// , 10, 11, 12, 13, 14, 15, 16
+	cout << RowEchelonForm(M) << endl << endl;
 
-	GMatrix M(3, 3, m);
-
-	cout << M << endl;
-
-	GMatrix M1 = RowEchelonForm(M);
-
-	cout << M1 << endl;
-
-	GMatrix M2 = ReducedRowEchelon(M);
-
-	cout << M2 << endl;
+	cout << ReducedRowEchelon(M) << endl;
 
 	
 	
