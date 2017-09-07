@@ -14,7 +14,8 @@ int main()
 
 	cout << ReducedRowEchelon(M) << endl;
 
-	
+	GLine L = GLine(GVector3(0.0f, 0.0f, 0.0f), GVector3(1.0f, 0.0f, 0.0f));
+	bool b = L.IsOnLine(GVector3(1.0f, 0.0f, 0.0f));
 	
     return 0;
 }

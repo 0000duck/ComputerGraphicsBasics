@@ -30,6 +30,9 @@ class GVector;
 class GMatrix;
 class GLine;
 class GPlane;
+class GQuater;
+
+typedef GVector3 GPoint3;
 
 class GVector3
 {
@@ -221,6 +224,38 @@ private:
 	int r;		// Dimension of row vector
 	int c;		// Dimension of column vector
 	float *M;	// Array of elements of a matrix
+};
+
+class GLine
+{
+public:
+	
+	GLine(const GPoint3 &_p = GPoint3(0, 0, 0), const GVector3 &_v = GVector3(0, 0, 0));
+	GLine(const GLine &copy);
+
+	GLine &operator =(const GLine &rhs);
+	GPoint3 operator ()(const float t) const;
+
+	GLine &SetPt(const GPoint3 &_p);
+	GLine &SetDir(const GVector3 &_v);
+
+	GPoint3 GetPt() const;
+	GVector3 GetDir() const;
+
+	bool IsOnLine(const GPoint3 &q) const;
+
+	friend ostream &operator <<(ostream &os, const GLine &l);
+	friend float dist(const GPoint3 &q, const GLine &l);
+	friend bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi);
+	friend bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3, const bool bCull = true);
+	friend bool intersect_planes(GLine &l, const GPlane &pi1, const GPlane &pi2);
+	
+
+private:
+
+	GPoint3 p;
+	GVector3 v;		// line function : l(t) = p + v * t
+
 };
 
 

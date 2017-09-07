@@ -872,6 +872,76 @@ int Nullity(const GMatrix &m)
 
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
+//                                        GLine                                         //
+//                                                                                      //
+//--------------------------------------------------------------------------------------//
+
+GLine::GLine(const GPoint3 &_p, const GVector3 &_v)
+{
+	p = _p;
+	v = _v;
+}
+
+
+GLine::GLine(const GLine &copy) : p(copy.p), v(copy.v)
+{
+}
+
+GPoint3 GLine::operator ()(const float t) const
+{
+	return p + t * v;
+}
+
+GLine &GLine::operator =(const GLine &rhs)
+{
+	this->p = rhs.p;
+	this->v = rhs.v;
+	return *this;
+}
+
+bool GLine::IsOnLine(const GPoint3 &q) const
+{
+	return EQ_ZERO( dist(q, *this),PRECISION);
+}
+
+ostream &operator <<(ostream &os, const GLine &l)
+{
+	os << "("
+		<< l.p[0] << " + (" << l.v[0] << ") * t, "
+		<< l.p[1] << " + (" << l.v[1] << ") * t, "
+		<< l.p[2] << " + (" << l.v[2] << ") * t)";
+	return os;
+}
+
+float dist(const GPoint3 &q, const GLine &l)
+{
+	return norm(proj(q - l.p, l.v) - (q - l.p));
+}
+
+GLine &GLine::SetPt(const GPoint3 &_p)
+{
+	p = _p;
+	return *this;
+}
+
+GLine &GLine::SetDir(const GVector3 &_v)
+{
+	v = _v;
+	return *this;
+}
+
+GPoint3 GLine::GetPt() const
+{
+	return p;
+}
+
+GVector3 GLine::GetDir() const
+{
+	return v;
+}
+
+//--------------------------------------------------------------------------------------//
+//                                                                                      //
 //                                        GQuater                                       //
 //                                                                                      //
 //--------------------------------------------------------------------------------------//
