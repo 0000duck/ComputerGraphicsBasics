@@ -942,6 +942,161 @@ GVector3 GLine::GetDir() const
 
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
+//                                        GPlane                                        //
+//                                                                                      //
+//--------------------------------------------------------------------------------------//
+
+GPlane::GPlane(const GVector3 &_n, const GPoint3 &_p)
+{
+	n = _n;
+	d = -n*_p;// -(n[0] * _p[0] + n[1] * _p[1] + n[2] * _p[2]);
+}
+
+GPlane::GPlane(const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3)
+{
+	n = (p2 - p1) ^ (p3 - p1);
+	d = -n*p1;
+}
+
+GPlane::GPlane(const float &a, const float &b, const float &c, const float &d)
+{
+	// ax + by + cz + d = 0
+	// n = (a,b,x)
+	this->n = GVector3(a, b, c);
+	this->d = d;
+}
+
+GPlane::GPlane(const GPlane &copy)
+{
+	this->n = copy.n;
+	this->d = copy.d;
+}
+
+GPlane &GPlane::operator =(const GPlane &rhs)
+{
+	this->n = rhs.n;
+	this->d = rhs.d;
+	return *this;
+}
+
+GVector3 GPlane::GetNormal() const
+{
+	return n;
+}
+
+bool GPlane::IsOnPlane(const GPoint3 &p) const
+{
+	float s;
+	s = -n*p;
+	if (EQ(s, d, PRECISION))
+		return true;
+	else
+		return false;
+}
+
+bool GPlane::IsAbovePlane(const GPoint3 &p) const
+{
+	float s;
+	s = -n*p;
+	if (s > 0.0f)
+		return true;
+	else
+		return false;
+}
+
+bool GPlane::IsBelowPlane(const GPoint3 &p) const
+{
+	float s;
+	s = -n*p;
+	if (s < 0.0f)
+		return true;
+	else
+		return false;
+}
+
+ostream &operator <<(ostream &os, const GPlane &pi)
+{
+	os << "(" << pi.n[0] << ") * x + ("
+		<< pi.n[1] << ") * y + ("
+		<< pi.n[2] << ") * z + ("
+		<< pi.d << ") = 0";
+	return os;
+}
+
+float dist(const GPlane &pi, const GPoint3 &p)
+{
+	float D;
+	D = (p[0] * pi.n[0] + p[1] * pi.n[1] + p[2] * pi.n[2] + pi.d) / norm(pi.n);
+	return D;
+}
+
+bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi)
+{
+	if (EQ_ZERO(l.v * pi.n, PRECISION))
+	{
+		cout << "line is parallel to plane !" << endl;
+		return false;
+	}
+
+	float t = -(l.p[0] * pi.n[0] + l.p[1] * pi.n[1] + l.p[2] * pi.n[2] + pi.d) / (l.v * pi.n);
+	p = l(t);
+	return true;
+}
+
+bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3, const bool bCull)
+{
+	GVector3 e1, e2, u, v, w;
+	float det, alpha, beta, t;
+	e1 = p2 - p1;
+	e2 = p3 - p1;
+	u = l.v ^ e2;
+	det = e1 * u;
+
+	if (bCull)
+	{
+		if (det < PRECISION)
+			return false;
+
+		w = l.p - p1;
+		alpha = w * u;
+		if (alpha < 0.0 || alpha > det)
+			return false;
+
+		v = w ^ e1;
+		beta = l.v * v;
+		if (beta < 0.0 || alpha + beta > det)
+			return false;
+
+		t = e2 * v;
+
+		alpha /= det;
+		beta /= det;
+		t /= det;
+	}
+	else
+	{
+		if (det > -PRECISION && det < PRECISION)
+			return false;
+
+		w = l.p - p1;
+		alpha = w * u / det;
+		if (alpha < 0.0 || alpha > 1.0)
+			return false;
+
+		v = w ^ e1;
+		beta = l.v * v / det;
+		if (beta < 0.0 || alpha + beta > 1.0)
+			return false;
+
+		t = e2 * v / det;
+	}
+
+	q = l(t);
+	return true;
+}
+
+//--------------------------------------------------------------------------------------//
+//                                                                                      //
 //                                        GQuater                                       //
 //                                                                                      //
 //--------------------------------------------------------------------------------------//

@@ -34,6 +34,7 @@ class GQuater;
 
 typedef GVector3 GPoint3;
 
+
 class GVector3
 {
 public:
@@ -258,6 +259,31 @@ private:
 
 };
 
+class GPlane
+{
+public:
+	GPlane(const GVector3 &_n = GVector3(0.0, 0.0, 1.0), const GPoint3 &_p = GPoint3());
+	GPlane(const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3);
+	GPlane(const float &a, const float &b, const float &c, const float &d);
+	GPlane(const GPlane &copy);
+
+	GPlane &operator =(const GPlane &rhs);
+
+	GVector3 GetNormal() const;
+
+	bool IsOnPlane(const GPoint3 &p) const;
+	bool IsAbovePlane(const GPoint3 &p) const;
+	bool IsBelowPlane(const GPoint3 &p) const;
+
+	friend ostream &operator <<(ostream &os, const GPlane &pi);
+	friend float dist(const GPlane &pi, const GPoint3 &p);
+	friend bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi);
+	friend bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3, const bool bCull);
+
+private:
+	GVector3 n;
+	float d;
+};
 
 class GQuater
 {
