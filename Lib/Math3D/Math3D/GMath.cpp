@@ -1030,11 +1030,19 @@ float dist(const GPlane &pi, const GPoint3 &p)
 	return D;
 }
 
+/*!
+*	\brief	求直线l和平面pi的交点
+*
+*	\param p 所求交点（如果相交）
+*	\param l 直线
+*	\param pi 平面
+*
+*	\return true: 相交, false: 直线和平面平行
+*/
 bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi)
 {
 	if (EQ_ZERO(l.v * pi.n, PRECISION))
 	{
-		cout << "line is parallel to plane !" << endl;
 		return false;
 	}
 
@@ -1043,12 +1051,24 @@ bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi)
 	return true;
 }
 
+/*!
+*	\brief	求直线l和三角形p1p2p3的交点
+*
+*	\param q 所求交点（如果相交）
+*	\param l 直线
+*	\param p1 三角形顶点
+*	\param p2 三角形顶点
+*	\param p3 三角形顶点
+*	\param bCull 不考虑直线和三角形背面相交的情况. (默认: true).
+*
+*	\return true: 相交, false: 直线和三角形平行或交点在三角形外
+*/
 bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3, const bool bCull)
 {
 	GVector3 e1, e2, u, v, w;
 	float det, alpha, beta, t;
 	e1 = p2 - p1;
-	e2 = p3 - p1;
+	e2 = p3 - p1; 
 	u = l.v ^ e2;
 	det = e1 * u;
 
@@ -1075,7 +1095,7 @@ bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, cons
 	}
 	else
 	{
-		if (det > -PRECISION && det < PRECISION)
+		if (EQ_ZERO(det,PRECISION) /*det > -PRECISION && det < PRECISION*/)
 			return false;
 
 		w = l.p - p1;
