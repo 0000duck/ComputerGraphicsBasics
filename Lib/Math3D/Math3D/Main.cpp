@@ -11,8 +11,7 @@ int main()
 	GVector3 p1(1.0f, .0f, .0f), p2(.0f, 1.0f, .0f), p3(.0f, .0f, 1.0f);
 	intersect_line_triangle(q, l, p1, p2,p3,false);
 
-	
-	
+
     return 0;
 }
 
