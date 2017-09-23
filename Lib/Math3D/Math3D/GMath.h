@@ -248,7 +248,7 @@ public:
 	friend ostream &operator <<(ostream &os, const GLine &l);
 	friend float dist(const GPoint3 &q, const GLine &l);
 	friend bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi);
-	friend bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3, const bool bCull = true);
+	friend bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3);
 	
 
 private:

@@ -1059,11 +1059,10 @@ bool intersect_line_plane(GPoint3 &p, const GLine &l, const GPlane &pi)
 *	\param p1 三角形顶点
 *	\param p2 三角形顶点
 *	\param p3 三角形顶点
-*	\param bCull 不考虑直线和三角形背面相交的情况. (默认: true).
 *
 *	\return true: 相交, false: 直线和三角形平行或交点在三角形外
 */
-bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3, const bool bCull)
+bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, const GPoint3 &p2, const GPoint3 &p3)
 {
 	GVector3 e1, e2, u, v, w;
 	float det, alpha, beta, t;
@@ -1072,44 +1071,22 @@ bool intersect_line_triangle(GPoint3 &q, const GLine &l, const GPoint3 &p1, cons
 	u = l.v ^ e2;
 	det = e1 * u;
 
-	if (bCull)
-	{
-		if (det < PRECISION)
-			return false;
+	
+	if (EQ_ZERO(det,PRECISION))
+		return false;
 
-		w = l.p - p1;
-		alpha = w * u;
-		if (alpha < 0.0 || alpha > det)
-			return false;
+	w = l.p - p1;
+	alpha = w * u / det;
+	if (alpha < 0.0 || alpha > 1.0)
+		return false;
 
-		v = w ^ e1;
-		beta = l.v * v;
-		if (beta < 0.0 || alpha + beta > det)
-			return false;
+	v = w ^ e1;
+	beta = l.v * v / det;
+	if (beta < 0.0 || alpha + beta > 1.0)
+		return false;
 
-		t = e2 * v;
-
-		alpha /= det;
-		beta /= det;
-		t /= det;
-	}
-	else
-	{
-		if (EQ_ZERO(det,PRECISION) /*det > -PRECISION && det < PRECISION*/)
-			return false;
-
-		w = l.p - p1;
-		alpha = w * u / det;
-		if (alpha < 0.0 || alpha > 1.0)
-			return false;
-
-		v = w ^ e1;
-		beta = l.v * v / det;
-		if (beta < 0.0 || alpha + beta > 1.0)
-			return false;
-
-		t = e2 * v / det;
-	}
+	t = e2 * v / det;
+	
 
 	q = l(t);
 	return true;
