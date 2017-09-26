@@ -19,3 +19,8 @@
 - 3D Mathematics（3D数学)
 - C++实践练习
 - 创建自己的3D数学库
+
+说明
+- Lib\Math3D中包含了该课程中涉及到的全部代码
+- Parpers文件夹中包含了论文《Fast MinimumStorage RayTriangle Intersection》
+- PPT文件夹中包含了本课程的全部PPT文件

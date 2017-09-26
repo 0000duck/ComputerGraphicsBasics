@@ -12,10 +12,14 @@ int main()
 	intersect_line_triangle(q, l, p1, p2,p3,false);
 */
 
-	GPoint3 q(1.0f, 2.0f, 1.0f);
-	GLine l(GPoint3(.0f, .0f, .0f), GVector3(1.0f, 1.0f, 1.0f));
+	//GPoint3 q(1.0f, 2.0f, 1.0f);
+	//GLine l(GPoint3(.0f, .0f, .0f), GVector3(1.0f, 1.0f, 1.0f));
 
-	float d = dist(q, l);
+	//float d = dist(q, l);
+
+	GPlane Pi(GVector3(.0f, .0f, 1.0f), GPoint3(.0f,.0f,.0f));
+	
+	bool b = Pi.IsAbovePlane(GVector3(1.0f, 1.0f, 1.0f));
 
     return 0;
 }
