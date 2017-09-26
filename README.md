@@ -1,4 +1,4 @@
-# ComputerGraphicsBasics
+# Computer Graphics Basics
 计算机图形基础教程
 
 课程目的
@@ -20,7 +20,13 @@
 - C++实践练习
 - 创建自己的3D数学库
 
-说明
-- Lib\Math3D中包含了该课程中涉及到的全部代码
-- Parpers文件夹中包含了论文《Fast MinimumStorage RayTriangle Intersection》
-- PPT文件夹中包含了本课程的全部PPT文件
+# 说明
+Lib\Math3D中包含了该课程中涉及到的全部代码。包括：
+- 三维向量
+- n维向量
+- 矩阵
+- 四元数
+
+Parpers文件夹中包含了论文《Fast MinimumStorage RayTriangle Intersection》，该论文中的算法在“C++练习直线与三角形的交点”课程中进行了详细说明。
+
+PPT文件夹中包含了本课程的全部PPT文件。
