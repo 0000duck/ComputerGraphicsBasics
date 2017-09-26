@@ -17,3 +17,5 @@
 - Affine Geometry（仿射几何）
 - Affine Transformations（仿射变换）
 - 3D Mathematics（3D数学)
+- C++实践练习
+- 创建自己的3D数学库
