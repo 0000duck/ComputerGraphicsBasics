@@ -1,5 +1,5 @@
-# Computer Graphics Basics
-计算机图形基础教程
+﻿# Computer Graphics Basics
+计算机图形基础教程 （总时长：15小时）
 
 课程目的
 - 掌握游戏编程和计算机图形学的基本数学知识。
