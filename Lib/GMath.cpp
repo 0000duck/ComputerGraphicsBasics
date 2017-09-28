@@ -1516,7 +1516,7 @@ GQuater &GQuater::SetInverse()
 {
 	if (!IsUnitQuater())
 	{
-		double norm_sqr = SQR(W) + SQR(X) + SQR(Y) + SQR(Z);
+		float norm_sqr = SQR(W) + SQR(X) + SQR(Y) + SQR(Z);
 		*this /= norm_sqr;
 	}
 	SetConjugate();
@@ -1573,65 +1573,6 @@ GQuater inv(const GQuater &q)
 		ret /= norm_sqr;
 	}
 	ret.Set(ret.W, -ret.X, -ret.Y, -ret.Z);
-	return ret;
-}
-
-GMatrix form_mat(const GQuater &q, bool isGL)
-{
-	GMatrix ret(4, 4);
-
-	if (q.IsUnitQuater())
-	{
-		float xx = SQR(q.X), yy = SQR(q.Y), zz = SQR(q.Z), ww = SQR(q.W);
-		float Nq = xx + yy + zz + ww;
-		float wx2 = 2.0f * q.W * q.X, wy2 = 2.0f * q.W * q.Y;
-		float wz2 = 2.0f * q.W * q.Z, xy2 = 2.0f * q.X * q.Y;
-		float xz2 = 2.0f * q.X * q.Z, yz2 = 2.0f * q.Y * q.Z;
-
-		ret[0][0] = ww + xx - yy - zz;
-		ret[1][0] = xy2 + wz2;
-		ret[2][0] = xz2 - wy2;
-
-		ret[0][1] = xy2 - wz2;
-		ret[1][1] = ww - xx + yy - zz;
-		ret[2][1] = yz2 + wx2;
-
-		ret[0][2] = xz2 + wy2;
-		ret[1][2] = yz2 - wx2;
-		ret[2][2] = ww - xx - yy + zz;
-
-		ret[0][3] = ret[1][3] = ret[2][3] = 0.0f;
-		ret[3][0] = ret[3][1] = ret[3][2] = 0.0f;
-		ret[3][3] = Nq;
-	}
-	else
-	{
-		float Nq = q.X * q.X + q.Y * q.Y + q.Z * q.Z + q.W * q.W;
-		float s = (Nq > 0.0f) ? (2.0f / Nq) : 0.0f;
-		float xs = q.X * s, ys = q.Y * s, zs = q.Z * s;
-		float wx = q.W * xs, wy = q.W * ys, wz = q.W * zs;
-		float xx = q.X * xs, xy = q.X * ys, xz = q.X * zs;
-		float yy = q.Y * ys, yz = q.Y * zs, zz = q.Z * zs;
-
-		ret[0][0] = 1.0f - (yy + zz);
-		ret[1][0] = xy + wz;
-		ret[2][0] = xz - wy;
-
-		ret[0][1] = xy - wz;
-		ret[1][1] = 1.0f - (xx + zz);
-		ret[2][1] = yz + wx;
-
-		ret[0][2] = xz + wy;
-		ret[1][2] = yz - wx;
-		ret[2][2] = 1.0f - (xx + yy);
-
-		ret[0][3] = ret[1][3] = ret[2][3] = 0.0f;
-		ret[3][0] = ret[3][1] = ret[3][2] = 0.0f;
-		ret[3][3] = 1.0f;
-	}
-	if (isGL)
-		ret.SetTranspose();
-
 	return ret;
 }
 
