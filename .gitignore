@@ -38,3 +38,7 @@
 
 */Math3D/Debug/
 */Math3D/Math3D/Debug/
+Lib/main.cpp
+Lib/Math3D.sln
+Lib/Math3D.vcxproj
+Lib/Math3D.vcxproj.filters

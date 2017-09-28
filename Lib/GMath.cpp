@@ -1504,6 +1504,25 @@ GQuater &GQuater::SetIdentity()
 	return *this;
 }
 
+GQuater& GQuater::SetConjugate()
+{
+	this->X *= -1.0;
+	this->Y *= -1.0;
+	this->Z *= -1.0;
+	return *this;
+}
+
+GQuater &GQuater::SetInverse()
+{
+	if (!IsUnitQuater())
+	{
+		double norm_sqr = SQR(W) + SQR(X) + SQR(Y) + SQR(Z);
+		*this /= norm_sqr;
+	}
+	SetConjugate();
+	return *this;
+}
+
 GQuater &GQuater::Normalize()
 {
 	float len = norm(*this);

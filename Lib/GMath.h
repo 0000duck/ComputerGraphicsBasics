@@ -324,6 +324,7 @@ public:
 	GQuater &Set(const float w, const float x, const float y, const float z);
 	GQuater &Set(float *q, bool invOrder = false);
 	GQuater &SetIdentity();
+	GQuater &SetConjugate();
 	GQuater &SetInverse();
 	GQuater &SetFromAngleAxis(const float theta, GVector3 axis, bool radian = false);
 	GQuater &SetFromEulerAngle(float theta1, float theta2, float theta3, EulerType eulerType = EULER_XYZ);
