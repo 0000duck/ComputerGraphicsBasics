@@ -21,9 +21,8 @@
 - 创建自己的3D数学库
 
 
-
-# CSDN学院在线视频地址 http://edu.csdn.net/course/detail/6166
-
+# CSDN学院在线视频地址 
+http://edu.csdn.net/course/detail/6166
 
 
 # 说明
