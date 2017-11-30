@@ -24,6 +24,9 @@
 # CSDN学院在线视频地址 
 http://edu.csdn.net/course/detail/6166
 
+# 腾讯精品课在线视频地址
+http://class.qq.com/class/24757.html
+
 
 # 说明
 Lib\Math3D中包含了该课程中涉及到的全部代码。包括：
